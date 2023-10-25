@@ -1,0 +1,20 @@
+
+body {
+    background-color: rgb(32, 56, 48);
+    font-family: 'Courier New', Courier, monospace
+}
+h2 {
+    color: #ffeaff;
+}
+
+.admin-header {
+    padding: 20px;
+    margin: 0px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffeaff;
+}
+input {
+    padding: 10px;
+}

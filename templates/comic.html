@@ -1,0 +1,62 @@
+<!doctype html>
+<title>f</title>
+<!-- load style.css from static -->
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="../index">Flask Comic Framework</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/comic/1">Comic</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/chapters">Chapters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/side">Side-Content</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/socialmedia">Contact</a>
+        </ul>
+    </nav>
+    <header>
+        
+    </header>
+    <h1 class="comic-header">Page {{ issue }}</h1> 
+    <img class="comic-page"  src="{{ url_for('static', filename=(p)) }}">
+    <div class="comic-controls">
+        <button id="prev-button" >Previous</button>
+        <button id="next-button" >Next</button>
+    </div>
+    <p>
+        {{ comic }}
+    </p>
+</body>
+
+<script>
+    var finalpage = {{ high }};
+    var issue = {{ issue}}
+    if (issue == 1) {
+        document.getElementById("prev-button").disabled = true;
+    }
+    if (issue == finalpage) {
+        document.getElementById("next-button").disabled = true;
+    }
+    function previous() {
+        if (issue > 1) {
+            issue -= 1;
+            window.location.href = "/comic/" + issue;
+        }
+    }
+    function next() {
+        console.log(finalpage);
+        if (issue < finalpage) {
+        issue += 1;
+        window.location.href = "/comic/" + issue;
+        }
+    }
+    document.getElementById("next-button").addEventListener("click", next);
+    document.getElementById("prev-button").addEventListener("click", previous);
+</script>
