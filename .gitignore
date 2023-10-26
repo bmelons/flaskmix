@@ -19,3 +19,5 @@ instance/
 DS_Store
 # i dont want to save my comic pages
 *.png
+*.json
+TODO

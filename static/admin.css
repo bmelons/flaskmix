@@ -117,8 +117,9 @@ button {
     cursor: pointer;
   }
 
-h2 {
+.seperator {
     color: #ffeaff;
+    background-color: rgb(27, 34, 47);
 }
 
 .admin-header {

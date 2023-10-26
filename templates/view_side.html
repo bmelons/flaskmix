@@ -1,5 +1,5 @@
 <!doctype html>
-<title>f</title>
+<title>{{comname}}</title>
 <!-- load style.css from static -->
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -24,8 +24,8 @@
     <header>
         
     </header>
-    <h1 class="comic-header">Page {{ issue }}</h1> 
-    <img class="comic-page"  src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
+    <h1 class="comic-header">{{comname}} | Page {{ issue }}</h1> 
+    <img class="comic-page"  src="{{ url_for('static', filename=("side-pages/" +p )) }}">
     <div class="comic-controls">
         <button id="first-button" >First</button>
         <button id="prev-button" >Previous</button>
@@ -39,7 +39,8 @@
 
 <script>
     var finalpage = {{ high }};
-    var issue = {{ issue}}
+    var issue = {{ issue}};
+    var data = "{{ filename }}";
     if (issue == 1) {
         document.getElementById("prev-button").disabled = true;
     }
@@ -47,22 +48,22 @@
         document.getElementById("next-button").disabled = true;
     }
     function first() {
-        window.location.href = "/comic/first";
+        window.location.href = "/"+data+"/first";
     }
     function last(){
-        window.location.href = "/comic/last";
+        window.location.href = "/"+data+"/last";
     }
     function previous() {
         if (issue > 1) {
             issue -= 1;
-            window.location.href = "/comic/" + issue;
+            window.location.href = "/"+data+"/" + issue;
         }
     }
     function next() {
         console.log(finalpage);
         if (issue < finalpage) {
         issue += 1;
-        window.location.href = "/comic/" + issue;
+        window.location.href = "/"+data+"/" + issue;
         }
     }
     document.getElementById("first-button").addEventListener("click", first);

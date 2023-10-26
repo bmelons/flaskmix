@@ -18,14 +18,18 @@
     </nav>
     <body>
 
-        <h1 class="comic-header">Chapters</h1>
-        <h2 class="comic-header">Here you can find all the chapters of the comic.</h2>
+        <h1 class="comic-header">Side Content</h1>
+        <h2 class="comic-header">Here you can find all the supplemental content.</h2>
         <ul>
             {% for chapter in chapters %}
                 <li >
-                    <a class="listed-chapter" href="{{ chapter.webpage }}">
-                        <img class="chapter-icon" src="{{ url_for('static', filename=("chapter-icons/" + chapter.image_path )) }}">
-                        <h2 class="chapter-name">{{ chapter.name }}</h2>
+                    <a class="listed-chapter" href="{{ chapter.filename }}">
+                        <img class="chapter-icon" src="{{ url_for('static', filename=("chapter-icons/" + chapter.banner_image )) }}">
+                        <div class="sc-nd">
+                            <h2 class="chapter-name">{{ chapter.name }}</h2>
+                            <h4 class="chapter-desc" style="font-size:small;" class="chapter-description">{{ chapter.description }}</h4>
+                        </div>
+                        
                     </a>
                 </li>
             {% endfor %}

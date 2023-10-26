@@ -152,3 +152,14 @@ button {
     padding: 20px;
     
 }
+
+.sc-nd {
+    /* horizontal align */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+h4 {
+    padding-left: 20px;
+}
