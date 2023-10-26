@@ -383,6 +383,6 @@ def get_side_db(id):
 
 if __name__ == '__main__':
     # create sql database called comics with an id, image path, and description
-    app.run(debug=True)
+    app.run(debug=True,host="0.0.0.0")
     
 

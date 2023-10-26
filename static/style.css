@@ -58,6 +58,21 @@ body {
     justify-content: space-around;
     width: 100%;
 }
+@media (pointer:none), (pointer:coarse) {
+    .navbar-brand{
+        display: none;
+    }
+    .navbar-nav
+    {
+        flex-direction: column;
+        width: 103%;
+        font-size: xx-large;
+        background-color: #2e2a23;
+    }
+    .navbar {
+        flex-direction: column;
+    }
+}
 ul {
     list-style-type: none;
 }
