@@ -171,7 +171,7 @@ def UploadToStatic():
     # save image to static folder
     for image in uploaded_files:
         print(image.filename)
-        image.save('static/'+image.filename)
+        image.save('static/comic-pages/'+image.filename)
     return redirect('/adminpanel')
 @app.route('/adminpanel/uploadchaptericon',methods=['POST'])
 def UploadChapterIcon():
