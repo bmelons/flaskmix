@@ -126,3 +126,29 @@ button {
     /* change cursor to point */
     cursor: pointer;
   }
+.listed-chapter {
+    background-color: rgb(35, 45, 30);
+    box-shadow: -5px 5px 6px 0px rgba(0,0,0,0.75);
+    padding: 15px;
+    /* vertically align contents to eachother */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: .2s;
+
+}
+.listed-chapter:hover {
+    background-color: #24472e;
+
+    box-shadow: -8px 8px 8px 0px rgba(0,0,0,0.75) !important;
+}
+.chapter-icon {
+    width: 128px;
+    height: 128px;
+    
+}
+.chapter-name {
+    padding: 20px;
+    
+}

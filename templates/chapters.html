@@ -22,7 +22,12 @@
         <h2 class="comic-header">Here you can find all the chapters of the comic.</h2>
         <ul>
             {% for chapter in chapters %}
-                <li><a href="/chapter/{{ chapter.image_path }}">{{ chapter.title }}</a></li>
+                <li >
+                    <a class="listed-chapter" href="{{ chapter.webpage }}">
+                        <img class="chapter-icon" src="{{ url_for('static', filename=("chapter-icons/" + chapter.image_path )) }}">
+                        <h2 class="chapter-name">{{ chapter.name }}</h2>
+                    </a>
+                </li>
             {% endfor %}
         </ul>
     </body>

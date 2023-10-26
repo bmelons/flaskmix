@@ -32,9 +32,10 @@ def index():
 @app.route('/chapters')
 def chapters():
     # get list of chapter from comic db
-    comics = get_connection().execute('SELECT * FROM comics').fetchall()
+    chapters = get_connection().execute('SELECT * FROM chapters').fetchall()
+
     # get number of highest issue
-    return render_template('chapters.html',comics=comics)
+    return render_template('chapters.html',chapters=chapters)
 
 @app.route('/comic')
 def comic():
@@ -81,7 +82,8 @@ def adminpanel():
 
     # get comics from database
     comics = get_connection().execute('SELECT * FROM comics').fetchall()
-    return render_template('adminpanel.html',comics=comics)
+    chapters = get_connection().execute('SELECT * FROM chapters').fetchall()
+    return render_template('adminpanel.html',comics=comics,chapters=chapters)
 
 @app.route('/adminpanel/add',methods=['POST'])
 def AddComic():
@@ -159,12 +161,13 @@ def AddChapter():
     if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
         return make_response("Unauthorized",401)
     # get image path and description from form
+    web_path = request.form.get('web_path')
     image_path = request.form.get('image_path')
-    name = request.form.get('description') or "..."
+    name = request.form.get('name') or "..."
     print(image_path + name)
     # insert into database
     conn = get_connection()
-    conn.execute('INSERT INTO chapters VALUES (NULL, ?, ?)', (image_path, name))
+    conn.execute('INSERT INTO chapters VALUES (?, ?, ?)', (web_path,image_path, name))
     conn.commit()
     print("chapter added")
     return redirect('/adminpanel')

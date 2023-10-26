@@ -44,7 +44,8 @@
                 Chapters
             </h2>
             <form action="/adminpanel/chapteradd" method="post" enctype="multipart/form-data">
-                <h2>Upload Comic</h2>
+                <h2>Create Chapter</h2>
+                <input type="text" name="web_path" placeholder="comic/1 (first page)">
                 <input type="text" name="image_path" placeholder="image.png (image name)">
                 <input type="text" name="name" placeholder="chapter name">
                 <input type="submit" value="Add">
@@ -54,11 +55,17 @@
             Database Contents
         </h2>
         <div class="admin-controls">
-            form
+            comics
         </div>
         <div class="jargon">
         {{comics}}
-    </div>
+        </div>
+        <div class="admin-controls">
+            chapters
+        </div>
+        <div class="jargon">
+        {{chapters}}
+        </div>
 
     </body>
 </html>
