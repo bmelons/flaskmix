@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, make_response, redirect
 import sqlite3
-import json
-import hashlib
 import os
 import dotenv
 
@@ -24,7 +22,7 @@ def dict_factory(cursor, row):
 
 conn = get_connection()
 conn.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
-
+conn.execute('CREATE TABLE IF NOT EXISTS chapters (webpage TEXT,image_path TEXT, name TEXT)')
 # index
 @app.route('/')
 @app.route('/index')
@@ -48,10 +46,13 @@ def socialmedia():
 
 @app.route('/comic/<int:issue>')
 def comic_issue(issue):
+    highest_issue = get_connection().execute('SELECT COUNT(*) FROM comics').fetchone().get('COUNT(*)')
+    if issue > highest_issue:
+        return make_response("Not Found (not a page)",404)
     # render comic template if issue is in database
     comic = get_connection().execute('SELECT * FROM comics WHERE rowid=?', (issue,)).fetchone()
+    # return str(comic)
     # get number of highest issue
-    highest_issue = get_connection().execute('SELECT COUNT(*) FROM comics').fetchone().get('COUNT(*)')
     image_path = comic.get('image_path') or 'placeholder.png'
     row_id = comic.get('rowid') or 0
     print(highest_issue)
@@ -63,9 +64,9 @@ def admin():
     if request.method == 'POST':
         print(request.form.get('username'))
         if request.form.get('username') != os.getenv('COMIC_ADMIN_UNAME'):
-            return render_template('admin.html',message='Incorrect username')
+            return render_template('admin.html',message='Incorrect.')
         if request.form.get('password') != os.getenv('COMIC_ADMIN_PW'):
-            return render_template('admin.html',message='Incorrect password')
+            return render_template('admin.html',message='Incorrect.')
         
         resp = make_response(redirect('/adminpanel'))
         resp.set_cookie('user', os.getenv('COMIC_ADMIN_COOKIE'))
@@ -106,7 +107,7 @@ def MassAddComic():
     highest_issue = get_connection().execute('SELECT COUNT(*) FROM comics').fetchone().get('COUNT(*)')
     conn = get_connection()
     for i in range(low,high+1):
-        image_path = request.form.get(str(i) + ".png")
+        image_path = str(i) + ".png"
         description = " "
         conn.execute('INSERT INTO comics VALUES (NULL, ?, ?)', (image_path, description))
     conn.commit()
@@ -117,6 +118,7 @@ def MassAddComic():
 def EditComic():
     if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
         return make_response("Unauthorized",401)
+    print("edit comic")
     # get id, image path, and description from form
     id = request.form.get('id')
     image_path = request.form.get('image_path')
@@ -152,7 +154,20 @@ def DeleteComic():
     conn.commit()
     print("comic deleted")
     return redirect('/adminpanel')
-
+@app.route('/adminpanel/chapteradd',methods=['POST'])
+def AddChapter():
+    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+        return make_response("Unauthorized",401)
+    # get image path and description from form
+    image_path = request.form.get('image_path')
+    name = request.form.get('description') or "..."
+    print(image_path + name)
+    # insert into database
+    conn = get_connection()
+    conn.execute('INSERT INTO chapters VALUES (NULL, ?, ?)', (image_path, name))
+    conn.commit()
+    print("chapter added")
+    return redirect('/adminpanel')
 
 
 if __name__ == '__main__':

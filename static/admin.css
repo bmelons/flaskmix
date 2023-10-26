@@ -1,8 +1,122 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,600;1,100&display=swap');
+
 body {
     background-color: rgb(32, 56, 48);
-    font-family: 'Courier New', Courier, monospace
+    font-family: 'Courier New', Courier, monospace;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    
 }
+
+.nav-item {
+    color: rgb(255, 254, 219);
+}
+.comic-header {
+    color: rgb(255, 254, 219);
+    padding: 20px;
+}
+
+.comic_page {
+    background-color: black;
+    width: 50%;
+    height: 50%;
+    filter: drop-shadow(0px 0px 10px rgb(0, 0, 0));
+}
+
+.navbar{
+    width: 101%;
+    height: 10%;
+    background-color: #24472e;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0 10px 0 10px;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    position:sticky;
+    
+}
+.navbar-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+ul {
+    list-style-type: none;
+}
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+    margin: 0%;
+    padding: 0%;
+    /* disable wrapping */
+    white-space: nowrap;
+    padding: 10px;
+    transition: 0.2s;
+}
+a:hover {
+    color: #ffeaff;
+    text-shadow: #ffeaff 0px 0px 10px;
+}
+
+.comic-controls {
+    padding: 20px;
+}
+
+button {
+    background-color: #685946; /* Green */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    border: none;
+    color: #ffeaff;
+    padding: 15px 32px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;    
+    font-family: 'Montserrat', sans-serif;
+
+    /* change cursor to point */
+    cursor: pointer;
+  }
+  button:disabled {
+    background-color: #2e2a23;
+    cursor: not-allowed;
+  }
+
+  .admin-entry {
+    padding: 30px;
+  }
+
+  .login-entry-label {
+    /* bold text */
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+.submit {
+    background-color: #685946; /* Green */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    border: none;
+    color: #ffeaff;
+    padding: 15px 32px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    /* change cursor to point */
+    cursor: pointer;
+  }
+
 h2 {
     color: #ffeaff;
 }
@@ -16,5 +130,10 @@ h2 {
     color: #ffeaff;
 }
 input {
+    padding: 10px;
+}
+
+.jargon {
+    background-color: #8d8d8d;
     padding: 10px;
 }

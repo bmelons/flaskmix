@@ -9,8 +9,8 @@ cursor = conn.cursor()
 def menu():
     desired = input("What do you want to do? (drop, create, check, exit): ")
     if desired == "drop":
-        cursor.execute('DROP TABLE comics')
-        cursor.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
+        cursor.execute('DROP TABLE chapters')
+        # cursor.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
     elif desired == "create":
         cursor.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
     elif desired == "check":

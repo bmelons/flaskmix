@@ -1,17 +1,29 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav class="navbar">
-    <a class="navbar-brand" href="./index">Flask Comic Framework</a>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="/comic/1">Comic</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/chapters">Chapters</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/side">Side-Content</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/socialmedia">Contact</a>
-    </ul>
-</nav>
+<html>
+    <nav class="navbar">
+        <a class="navbar-brand" href="./index">Flask Comic Framework</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/comic/1">Comic</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/chapters">Chapters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/side">Side-Content</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/socialmedia">Contact</a>
+        </ul>
+    </nav>
+    <body>
+
+        <h1 class="comic-header">Chapters</h1>
+        <h2 class="comic-header">Here you can find all the chapters of the comic.</h2>
+        <ul>
+            {% for chapter in chapters %}
+                <li><a href="/chapter/{{ chapter.image_path }}">{{ chapter.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

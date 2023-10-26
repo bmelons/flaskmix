@@ -25,7 +25,7 @@
         
     </header>
     <h1 class="comic-header">Page {{ issue }}</h1> 
-    <img class="comic-page"  src="{{ url_for('static', filename=(p)) }}">
+    <img class="comic-page"  src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
     <div class="comic-controls">
         <button id="prev-button" >Previous</button>
         <button id="next-button" >Next</button>
