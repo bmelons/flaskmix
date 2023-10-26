@@ -12,4 +12,5 @@ make a .env file and add
 COMIC_ADMIN_COOKIE= value of cookie that is accepted by the admin panel
 COMIC_ADMIN_UNAME= admin username
 COMIC_ADMIN_PW= admin password
+SITE_TITLE= name of site/comic
 ```

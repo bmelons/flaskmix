@@ -33,7 +33,7 @@ conn.execute('CREATE TABLE IF NOT EXISTS chapters (webpage TEXT,image_path TEXT,
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',sitename=os.getenv("SITE_TITLE"))
 
 @app.route('/chapters')
 def chapters():
@@ -41,7 +41,7 @@ def chapters():
     chapters = get_connection().execute('SELECT * FROM chapters').fetchall()
 
     # get number of highest issue
-    return render_template('chapters.html',chapters=chapters)
+    return render_template('chapters.html',sitename=os.getenv("SITE_TITLE"),chapters=chapters)
 
 @app.route('/comic')
 def comic():
@@ -49,7 +49,7 @@ def comic():
 
 @app.route('/socialmedia')
 def socialmedia():
-    return render_template('socialmedia.html')
+    return render_template('socialmedia.html',sitename=os.getenv("SITE_TITLE"))
 
 @app.route('/comic/last')
 def comic_last():
@@ -72,7 +72,7 @@ def comic_issue(issue):
     image_path = comic.get('image_path') or 'placeholder.png'
     row_id = comic.get('rowid') or 0
     print(highest_issue)
-    return render_template('comic.html',p=image_path,issue=issue,high=highest_issue)
+    return render_template('comic.html',sitename=os.getenv("SITE_TITLE"),p=image_path,issue=issue,high=highest_issue)
 
 @app.route('/sidecontent')
 def side():
@@ -85,7 +85,7 @@ def side():
                 data["filename"] = filename[:-5]
                 chapters.append(data)
                 print(data)
-    return render_template('sidecontent.html',chapters=chapters)
+    return render_template('sidecontent.html',sitename=os.getenv("SITE_TITLE"),chapters=chapters)
 
 
 # admin pages
@@ -94,14 +94,14 @@ def admin():
     if request.method == 'POST':
         print(request.form.get('username'))
         if request.form.get('username') != os.getenv('COMIC_ADMIN_UNAME'):
-            return render_template('admin.html',message='Incorrect.')
+            return render_template('admin.html',sitename=os.getenv("SITE_TITLE"),message='Incorrect.')
         if request.form.get('password') != os.getenv('COMIC_ADMIN_PW'):
-            return render_template('admin.html',message='Incorrect.')
+            return render_template('admin.html',sitename=os.getenv("SITE_TITLE"),message='Incorrect.')
         
         resp = make_response(redirect('/adminpanel'))
         resp.set_cookie('user', os.getenv('COMIC_ADMIN_COOKIE'))
         return resp
-    return render_template('admin.html')
+    return render_template('admin.html',sitename=os.getenv("SITE_TITLE"))
 
 @app.route('/adminpanel',methods=['GET','POST'])
 def adminpanel():
@@ -183,7 +183,7 @@ def UploadChapterIcon():
     # save image to static folder
     for image in uploaded_files:
         print(image.filename)
-        image.save('static/chapter_icons/'+image.filename)
+        image.save('static/chapter-icons/'+image.filename)
     return redirect('/adminpanel')
 @app.route('/adminpanel/uploadsidepage',methods=['POST'])
 def UploadSidePage():
@@ -355,7 +355,7 @@ def side_comic_read(chapter,issue):
     print(highest_issue)
     comname = data.get('name') or "Side Comic"
     filename = data.get('filename')
-    return render_template('view_side.html',p=image_path,issue=issue,high=highest_issue,comname=comname,filename=filename)
+    return render_template('view_side.html',sitename=os.getenv("SITE_TITLE"),p=image_path,issue=issue,high=highest_issue,comname=comname,filename=filename)
     
 
 
