@@ -242,6 +242,18 @@ def EditChapter():
     conn.commit()
     print("chapter edited")
     return redirect('/adminpanel')
+@app.route('/adminpanel/chapterdelete',methods=['POST'])
+def DeleteChapter():
+    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+        return make_response("Unauthorized",401)
+    # get id from form
+    web_path = request.form.get('web_path')
+    # delete from database
+    conn = get_connection()
+    conn.execute('DELETE FROM chapters WHERE webpage=?', (web_path,))
+    conn.commit()
+    print("chapter deleted")
+    return redirect('/adminpanel')
 
 @app.route('/adminpanel/createsidecomic',methods=['POST'])
 def CreateSideComic():
