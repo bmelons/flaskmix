@@ -73,6 +73,9 @@ def comic_issue(issue):
     row_id = comic.get('rowid') or 0
     print(highest_issue)
     return render_template('comic.html',sitename=os.getenv("SITE_TITLE"),p=image_path,issue=issue,high=highest_issue)
+@app.route('/comic/<int:issue>/')
+def comic_issue_slash(issue):
+    return redirect('/comic/'+str(issue))
 
 @app.route('/sidecontent')
 def side():
@@ -310,7 +313,8 @@ def SideEditPage():
 
 @app.route('/<chapter>')
 def direct(chapter):
-    # if c
+    if chapter == "comic":
+        return redirect('/comic')
     if chapter.isdigit():
         issue = int(chapter)
         highest_issue = get_connection().execute('SELECT COUNT(*) FROM comics').fetchone().get('COUNT(*)')
