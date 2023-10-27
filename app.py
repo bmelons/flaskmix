@@ -64,7 +64,7 @@ def comic_first():
 def comic_issue(issue):
     highest_issue = get_connection().execute('SELECT COUNT(*) FROM comics').fetchone().get('COUNT(*)')
     if issue > highest_issue:
-        return make_response("Not Found (not a page)",404)
+        return page_not_found(404)
     # render comic template if issue is in database
     comic = get_connection().execute('SELECT * FROM comics WHERE rowid=?', (issue,)).fetchone()
     # return str(comic)
@@ -336,13 +336,13 @@ def direct(chapter):
         return redirect('/comic/'+str(issue))
     if get_side_db(chapter) != None:
         return side_comic_read(chapter,1)
-    return make_response("none",404)
+    return page_not_found(404)
 
 @app.route('/<chapter>/<int:issue>')
 def direct_sidecomic(chapter,issue):
     if get_side_db(chapter) != None:
         return side_comic_read(chapter,issue)
-    return make_response("none",404)
+    return page_not_found(404)
 
 @app.route('/<chapter>/last')
 def last_sidecomic(chapter):
@@ -359,7 +359,7 @@ def side_comic_read(chapter,issue):
     if issue == "HIGH":
         return redirect('/'+chapter+'/'+str(highest_issue))
     if issue > highest_issue:
-        return make_response("Not Found (not a page)",404)
+        return page_not_found(404)
     comic = conn.execute('SELECT * FROM comics WHERE rowid=?', (issue,)).fetchone()
     image_path = comic.get('image_path') or 'placeholder.png'
     row_id = comic.get('rowid') or 1
@@ -380,6 +380,9 @@ def get_side_db(id):
         return alternate_connection('./side-content-data/'+id+'.db')
     return None
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html',sitename=os.getenv("SITE_TITLE")), 404
 
 if __name__ == '__main__':
     # create sql database called comics with an id, image path, and description

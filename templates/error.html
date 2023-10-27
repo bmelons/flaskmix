@@ -1,0 +1,33 @@
+<!-- FILEPATH: /Users/admin/Desktop/Flaskmix/templates/error.html -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{sitename}}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <nav class="navbar">
+            <a class="navbar-brand" href="./index">{{sitename}}</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/comic/1">Comic</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chapters">Chapters</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sidecontent">Side-Content</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/socialmedia">Contact</a>
+            </ul>
+        </nav>
+        <div style="margin: 30px;">
+            <h1 class="navbar-brand" >Oopsies 😍</h1>
+        <h2>That link doesn't work here...</h2>
+        </div>
+        
+        <img src = "{{ url_for('static', filename='error.PNG') }}"> 
+    </body>
+</html>
