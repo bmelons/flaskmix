@@ -1,7 +1,7 @@
 # Flaskmix
 or Flaskomix
 or Flask Comics
-^whatever^
+<sub>whatever</sub>
 
 # About
 this is a framework made in like a week to host a webcomic in because i don't like using wordpress, it makes me feel dirty and i don't like php either so i made this in python.
