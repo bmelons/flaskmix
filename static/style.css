@@ -182,3 +182,22 @@ h4 {
 .sm {
     display: flex;flex-direction: row;align-items: center; padding: 30px
 }
+
+
+
+.index-control {
+    /* vertically center this div on the page */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(35, 50, 35);
+    font-weight: 900;
+    
+    
+
+
+}

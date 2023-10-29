@@ -2,7 +2,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
-<body>
+<!-- image background style -->
+<body class="index-body" style="background-image: url('static/indexbanner.png');">
     <nav class="navbar">
         <a class="navbar-brand" href="./index">{{sitename}}</a>
         <ul class="navbar-nav">
@@ -19,6 +20,8 @@
                 <a class="nav-link" href="/socialmedia">Contact</a>
         </ul>
     </nav>
-    <a href="/comic/first" class="btn btn-primary">Read From Beginning</a>
-    <a href="/comic/last" class="btn btn-primary">Latest Page</a>
+    <div class="index-control">
+        <a href="/comic/first" class="btn btn-primary">Read From Beginning</a>
+        <a href="/comic/last" class="btn btn-primary">Latest Page</a>
+    </div>
 </body>
