@@ -324,6 +324,16 @@ def SideEditPage():
     conn.commit()
     print("side comic page edited")
     return redirect('/adminpanel')
+@app.route("/adminpanel/uploadcharacter",methods=['POST'])
+def UploadCharacter():
+    if administrator_check(request):
+        return make_response("Unauthorized",401)
+    uploaded_files = request.files.getlist("file")
+    print(uploaded_files)
+    for image in uploaded_files:
+        print(image.filename)
+        image.save('static/characters/'+image.filename)
+    return redirect('/adminpanel')
 @app.route("/adminpanel/addcharacter",methods=['POST'])
 def AddCharacter():
     if administrator_check(request):
