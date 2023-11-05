@@ -5,6 +5,30 @@
     padding: 0;
     box-sizing: border-box;
 }
+@media (any-pointer: coarse) {
+   
+    
+    /* .navbar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: #685946 !important;
+    } */
+    .comic-controls {
+        flex-direction: column;
+        font-size: 2em;
+        
+    }
+    .comic-header {
+        font-size: 3em;
+        padding: 60px;
+    }
+
+
+}
+
 body {
     background-color: rgb(35, 50, 35);
     font-family: 'Montserrat', sans-serif;
@@ -58,21 +82,7 @@ body {
     justify-content: space-around;
     width: 100%;
 }
-@media (pointer:none), (pointer:coarse) {
-    .navbar-brand{
-        display: none;
-    }
-    .navbar-nav
-    {
-        flex-direction: column;
-        width: 103%;
-        font-size: xx-large;
-        background-color: #2e2a23;
-    }
-    .navbar {
-        flex-direction: column;
-    }
-}
+
 ul {
     list-style-type: none;
 }
@@ -201,3 +211,5 @@ h4 {
 
 
 }
+
+/* Add a media query for screens smaller than 768px */
