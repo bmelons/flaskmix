@@ -26,6 +26,9 @@
     </header>
     <h1 class="comic-header">{{comname}} | Page {{ issue }}</h1> 
     <img class="comic-page"  src="{{ url_for('static', filename=("side-pages/" +p )) }}">
+    <h2 class="comic-description">
+        {{d}}
+    </h2>
     <div class="comic-controls">
         <button id="first-button" >First</button>
         <button id="prev-button" >Previous</button>
@@ -41,6 +44,7 @@
     var finalpage = {{ high }};
     var issue = {{ issue}};
     var data = "{{ filename }}";
+    console.log(data)
     if (issue == 1) {
         document.getElementById("prev-button").disabled = true;
     }
@@ -51,7 +55,7 @@
         window.location.href = "/"+data+"/first";
     }
     function last(){
-        window.location.href = "/"+data+"/last";
+        window.location.href = "/{{ filename }}/last";
     }
     function previous() {
         if (issue > 1) {

@@ -29,6 +29,7 @@ def alternate_connection(x):
 conn = get_connection()
 conn.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
 conn.execute('CREATE TABLE IF NOT EXISTS chapters (webpage TEXT,image_path TEXT, name TEXT)')
+conn.execute('CREATE TABLE IF NOT EXISTS characters (rowid INTEGER PRIMARY KEY, name TEXT, description TEXT, image_path TEXT)')
 # index
 @app.route('/')
 @app.route('/index')
@@ -71,8 +72,9 @@ def comic_issue(issue):
     # get number of highest issue
     image_path = comic.get('image_path') or 'placeholder.png'
     row_id = comic.get('rowid') or 0
+    desc = comic.get('description') or "..."
     print(highest_issue)
-    return render_template('comic.html',sitename=os.getenv("SITE_TITLE"),p=image_path,issue=issue,high=highest_issue)
+    return render_template('comic.html',sitename=os.getenv("SITE_TITLE"),d=desc,p=image_path,issue=issue,high=highest_issue)
 @app.route('/comic/<int:issue>/')
 def comic_issue_slash(issue):
     return redirect('/comic/'+str(issue))
@@ -259,7 +261,7 @@ def DeleteChapter():
 def CreateSideComic():
     name = request.form.get('name')
     filename = request.form.get('filename')
-    banner_image = request.form.get('banner_image')
+    banner_image = request.form.get('image_path')
     description = request.form.get('description') or "A side comic."
     # create database
     conn = alternate_connection('./side-content-data/'+filename+'.db')
@@ -370,8 +372,9 @@ def side_comic_read(chapter,issue):
         print(data)
     print(highest_issue)
     comname = data.get('name') or "Side Comic"
-    filename = data.get('filename')
-    return render_template('view_side.html',sitename=os.getenv("SITE_TITLE"),p=image_path,issue=issue,high=highest_issue,comname=comname,filename=filename)
+    fn = data.get('filename')
+    desc = comic.get('description') or "..."
+    return render_template('view_side.html',sitename=os.getenv("SITE_TITLE"),d=desc,p=image_path,issue=issue,high=highest_issue,comname=comname,filename=fn)
     
 
 

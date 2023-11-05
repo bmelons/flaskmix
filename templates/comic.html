@@ -28,6 +28,9 @@
     </header>
     <h1 class="comic-header">Page {{ issue }}</h1> 
     <img class="comic-page"  src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
+    <h2 class="comic-description">
+        {{d}}
+    </h2>
     <div class="comic-controls">
         <button id="first-button" >First</button>
         <button id="prev-button" >Previous</button>
