@@ -25,11 +25,10 @@ def alternate_connection(x):
     conn = sqlite3.connect(x)
     conn.row_factory = dict_factory
     return conn
-
+def get_character_directory():
+    return open('characters.json','r+')
 conn = get_connection()
-conn.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
-conn.execute('CREATE TABLE IF NOT EXISTS chapters (webpage TEXT,image_path TEXT, name TEXT)')
-conn.execute('CREATE TABLE IF NOT EXISTS characters (rowid INTEGER PRIMARY KEY, name TEXT, description TEXT, image_path TEXT)')
+
 # index
 @app.route('/')
 @app.route('/index')
@@ -111,7 +110,7 @@ def admin():
 @app.route('/adminpanel',methods=['GET','POST'])
 def adminpanel():
     # check if cookie is right
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
 
     # get comics from database
@@ -121,7 +120,7 @@ def adminpanel():
 
 @app.route('/adminpanel/add',methods=['POST'])
 def AddComic():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     # get image path and description from form
     image_path = request.form.get('image_path')
@@ -136,7 +135,7 @@ def AddComic():
 
 @app.route('/adminpanel/massadd',methods=['POST'])
 def MassAddComic():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     low = int(request.form.get('low'));
     high = int(request.form.get('high'));
@@ -152,7 +151,7 @@ def MassAddComic():
 
 @app.route('/adminpanel/edit',methods=['POST'])
 def EditComic():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     print("edit comic")
     # get id, image path, and description from form
@@ -168,7 +167,7 @@ def EditComic():
 
 @app.route('/adminpanel/upload',methods=['POST'])
 def UploadToStatic():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE') :
+    if administrator_check(request) :
         return make_response("Unauthorized",401)
     # get image from form
     uploaded_files = request.files.getlist("file")
@@ -180,7 +179,7 @@ def UploadToStatic():
     return redirect('/adminpanel')
 @app.route('/adminpanel/uploadchaptericon',methods=['POST'])
 def UploadChapterIcon():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE') :
+    if administrator_check(request) :
         return make_response("Unauthorized",401)
     # get image from form
     uploaded_files = request.files.getlist("file")
@@ -192,7 +191,7 @@ def UploadChapterIcon():
     return redirect('/adminpanel')
 @app.route('/adminpanel/uploadsidepage',methods=['POST'])
 def UploadSidePage():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE') :
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     # get image from form
     uploaded_files = request.files.getlist("file")
@@ -204,7 +203,7 @@ def UploadSidePage():
     return redirect('/adminpanel')
 @app.route('/adminpanel/delete',methods=['POST'])
 def DeleteComic():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     # get id from form
     id = request.form.get('id')
@@ -216,7 +215,7 @@ def DeleteComic():
     return redirect('/adminpanel')
 @app.route('/adminpanel/chapteradd',methods=['POST'])
 def AddChapter():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     # get image path and description from form
     web_path = request.form.get('web_path')
@@ -231,7 +230,7 @@ def AddChapter():
     return redirect('/adminpanel')
 @app.route('/adminpanel/chapteredit',methods=['POST'])
 def EditChapter():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     print("edit chapter")
     # get id, image path, and description from form
@@ -246,7 +245,7 @@ def EditChapter():
     return redirect('/adminpanel')
 @app.route('/adminpanel/chapterdelete',methods=['POST'])
 def DeleteChapter():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     # get id from form
     web_path = request.form.get('web_path')
@@ -259,6 +258,8 @@ def DeleteChapter():
 
 @app.route('/adminpanel/createsidecomic',methods=['POST'])
 def CreateSideComic():
+    if administrator_check(request):
+        return make_response("Unauthorized",401)
     name = request.form.get('name')
     filename = request.form.get('filename')
     banner_image = request.form.get('image_path')
@@ -282,7 +283,7 @@ def CreateSideComic():
     return redirect('/adminpanel')
 @app.route("/adminpanel/editsidedata",methods=['POST'])
 def EditSideData():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     name = request.form.get('name')
     filename = request.form.get('filename')
@@ -300,7 +301,7 @@ def EditSideData():
     return redirect('/adminpanel')
 @app.route("/adminpanel/sideaddpage",methods=['POST'])
 def SideAddPage():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     name = request.form.get('filename')
     image_path = request.form.get('image_path') or "placeholder.png"
@@ -312,7 +313,7 @@ def SideAddPage():
     return redirect('/adminpanel')
 @app.route("/adminpanel/sideeditpage",methods=['POST'])
 def SideEditPage():
-    if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+    if administrator_check(request):
         return make_response("Unauthorized",401)
     name = request.form.get('filename')
     id = request.form.get('id')
@@ -323,7 +324,40 @@ def SideEditPage():
     conn.commit()
     print("side comic page edited")
     return redirect('/adminpanel')
+@app.route("/adminpanel/addcharacter",methods=['POST'])
+def AddCharacter():
+    if administrator_check(request):
+        return make_response("Unauthorized",401)
+    name = request.form.get('name')
+    file = get_character_directory()
+    data = json.load(file)
+    print(data)
+    data['characters'].append(name)
+    file.seek(0)
+    file.write(json.dumps(data))
+    print("character added")
+    return redirect('/adminpanel')
+@app.route("/adminpanel/deletecharacter",methods=['POST'])
+def DeleteCharacter():
+    if administrator_check(request):
+        return make_response("Unauthorized",401)
+    name = request.form.get('name')
+    file = get_character_directory()
+    data = json.load(file)
+    if not name in data:
+        return make_response("Character not found",404)
+    data['characters'].remove(name)
+    file.seek(0)
+    file.write(json.dumps(data))
+    print("character deleted")
+    return redirect('/adminpanel')
 
+
+@app.route("/characters")
+def Characters():
+    file = get_character_directory()
+    data = json.load(file)
+    return render_template('characters.html',sitename=os.getenv("SITE_TITLE"),characters=data['characters'])
 
 @app.route('/<chapter>')
 def direct(chapter):
@@ -387,8 +421,34 @@ def get_side_db(id):
 def page_not_found(e):
     return render_template('error.html',sitename=os.getenv("SITE_TITLE")), 404
 
+
+def administrator_check(data):
+    return data.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE')
+
+
+
+def setup_tables():
+    conn.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT)')
+    conn.execute('CREATE TABLE IF NOT EXISTS chapters (webpage TEXT,image_path TEXT, name TEXT)')
+
+
+def setup_app():
+    fcheck = os.path.exists
+    setup_tables()
+
+    if fcheck('./characters.json') == False:
+        with open('characters.json', 'w') as outfile:
+            json.dump({"characters":[]}, outfile)
+    # check for directories
+    checks = ['./static','./static/comic-pages','./static/chapter-icons','./static/side-pages', './side-content-data', ]
+    for directory in checks:
+        if fcheck(directory) == False:
+            os.mkdir(directory)
+    # check for side comic databases
+
 if __name__ == '__main__':
     # create sql database called comics with an id, image path, and description
+    setup_app()
     app.run(debug=True,host="0.0.0.0")
     
 

@@ -105,6 +105,18 @@
                 <input type="text" name="description" placeholder="Page Description">
                 <input type="submit" value="Edit">
             </form>
+            <h2 class="seperator" style="padding: 30px;">
+                Character Management
+            </h2>
+            <form action="/adminpanel/addcharacter" method="post">
+                <h2>Add Character</h2>
+                <input type="text" name="name" placeholder="ren.png">
+                <input type="submit" value="Add">
+            </form>
+            <form action="/adminpanel/deletecharacter" method="post">
+                <h2 style="color:red">DELETE Character</h2>
+                <input type="text" name="name" placeholder="ren.png">
+                <input type="submit" value="DELETE">
         </div>
         <h2 class="seperator" style="padding: 30px;">
             Database Contents

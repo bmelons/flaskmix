@@ -21,7 +21,15 @@
         </ul>
     </nav>
     <div class="characters">
-        
+        <!-- list characters here -->
+        {% for character in characters %}
+        <ul class="char-list">
+            <li style="justify-content: center;">
+                <img class="character" src="{{ url_for('static', filename=("characters/" +character )) }}">
+            </li>
+            
+        </ul>
+        {% endfor %}
     </div>
 
 </body>
