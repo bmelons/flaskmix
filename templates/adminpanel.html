@@ -27,6 +27,11 @@
                 <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
                 <input type="submit" value="Upload">
             </form>
+            <form action="/adminpanel/uploadcharacter" method="post" enctype="multipart/form-data">
+                <h2>Upload Character</h2>
+                <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
+                <input type="submit" value="Upload">
+            </form>
             <h2 class="seperator" style="padding: 30px;">
                 Comic Controls
             </h2>
@@ -108,11 +113,7 @@
             <h2 class="seperator" style="padding: 30px;">
                 Character Management
             </h2>
-            <form action="/adminpanel/uploadcharacter" method="post">
-                <h2>Upload Character</h2>
-                <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
-                <input type="submit" value="Upload">
-            </form>
+            
             <form action="/adminpanel/addcharacter" method="post">
                 <h2>Add Character</h2>
                 <input type="text" name="name" placeholder="ren.png">
