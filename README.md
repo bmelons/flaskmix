@@ -34,3 +34,5 @@ make sure you have three folders in static called
 this probably isn't secure but the admin panel is protected by a cookie a single cookie that you can set in the .env file
 
 for most directories it automatically creates them if they don't exist so you don't have to worry about that
+
+updates might fall behind, ill probably fork my comic's site into its own repo
