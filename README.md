@@ -35,4 +35,4 @@ this probably isn't secure but the admin panel is protected by a cookie a single
 
 for most directories it automatically creates them if they don't exist so you don't have to worry about that
 
-updates might fall behind, ill probably fork my comic's site into its own repo
+updates might fall behind, ill probably fork my comic's site into its own repo.
