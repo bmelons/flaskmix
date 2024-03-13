@@ -1,42 +1,51 @@
 <!doctype html>
 <title>Page {{ issue }} of {{ sitename }}</title>
 <!-- load style.css from static -->
+
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
 </head>
-<body>
-    <nav class="navbar">
-        <a class="navbar-brand" href="../index">{{sitename}}</a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/comic/1">Comic</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/chapters">Chapters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/sidecontent">Side-Content</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/characters">Characters</a>
-            </li>
-        </ul>
-    </nav>
-    <header>
-        
-    </header>
-    <h1 class="comic-header">Page {{ issue }}</h1> 
-    <img class="comic-page"  src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
+
+<body class="index-body">
+    <div class="navigation">
+        <div class="menu">
+            <div class="bar bar-1"></div>
+            <div class="bar bar-2"></div>
+            <div class="bar bar-3"></div>
+
+        </div>
+        <nav>
+            <ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/comic/1">Comic</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chapters">Chapters</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sidecontent">Side-Content</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/characters">Characters</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <h1 class="comic-header">Page {{ issue }}</h1>
+    <img class="comic-page" src="{{ url_for('static', filename=(" comic-pages/" +p )) }}">
     <h2 class="comic-description">
         {{d}}
     </h2>
     <div class="comic-controls">
-        <button id="first-button" >First</button>
-        <button id="prev-button" >Previous</button>
-        <button id="next-button" >Next</button>
-        <button id="last-button" >Last</button>
+        <button id="first-button">First</button>
+        <button id="prev-button">Previous</button>
+        <button id="next-button">Next</button>
+        <button id="last-button">Last</button>
     </div>
     <p>
         {{ comic }}
@@ -45,7 +54,7 @@
 
 <script>
     var finalpage = {{ high }};
-    var issue = {{ issue}}
+    var issue = {{ issue }}
     if (issue == 1) {
         document.getElementById("prev-button").disabled = true;
     }
@@ -55,7 +64,7 @@
     function first() {
         window.location.href = "/comic/first";
     }
-    function last(){
+    function last() {
         window.location.href = "/comic/last";
     }
     function previous() {
@@ -67,8 +76,8 @@
     function next() {
         console.log(finalpage);
         if (issue < finalpage) {
-        issue += 1;
-        window.location.href = "/comic/" + issue;
+            issue += 1;
+            window.location.href = "/comic/" + issue;
         }
     }
     document.getElementById("first-button").addEventListener("click", first);

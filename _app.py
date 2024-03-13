@@ -37,7 +37,7 @@ def index():
 
 @app.route('/chapters')
 def chapters():
-    # get list of chapters from comic db
+    # get list of chapter from comic db
     chapters = get_connection().execute('SELECT * FROM chapters').fetchall()
 
     # get number of highest issue
@@ -462,3 +462,4 @@ if __name__ == '__main__':
     setup_app()
     app.run(debug=True)
     
+
