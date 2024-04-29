@@ -1,14 +1,6 @@
-<!-- FILEPATH: /Users/admin/Desktop/Flaskmix/templates/characters.html -->
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
-<!-- image background style -->
-
-
-<script src="{{ url_for('static', filename='main.js') }}"></script>
+{% extends "frame.html" %}
+{%block content%}
 <div class="characters">
-    <!-- list characters here -->
-
     <ul class="char-list">
         {% for character in characters %}
         <li style="justify-content: center;">
@@ -18,3 +10,4 @@
     </ul>
 
 </div>
+{%endblock%}
