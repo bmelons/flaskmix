@@ -1,56 +1,27 @@
+{% extends 'frame.html' %}
 <!doctype html>
 <title>Page {{ issue }} of {{ sitename }}</title>
 <!-- load style.css from static -->
 
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
 
-<body class="index-body">
-    <div class="navigation">
-        <div class="menu">
-            <div class="bar bar-1"></div>
-            <div class="bar bar-2"></div>
-            <div class="bar bar-3"></div>
 
-        </div>
-        <nav>
-            <ul>
-                <li class="nav-item">
-                    <a class="nav-link" href="/index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/comic/1">Comic</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/chapters">Chapters</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sidecontent">Side-Content</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/characters">Characters</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-    <h1 class="comic-header">Page {{ issue }}</h1>
-    <img class="comic-page" src="{{ url_for('static', filename=(" comic-pages/" +p )) }}">
-    <h2 class="comic-description">
-        {{d}}
-    </h2>
-    <div class="comic-controls">
-        <button id="first-button">First</button>
-        <button id="prev-button">Previous</button>
-        <button id="next-button">Next</button>
-        <button id="last-button">Last</button>
-    </div>
-    <p>
-        {{ comic }}
-    </p>
-</body>
+
+{% block content %}
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+<h1 class="comic-header">Page {{ issue }}</h1>
+<img class="comic-page" src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
+<h2 class="comic-description">
+    {{d}}
+</h2>
+<div class="comic-controls">
+    <button id="first-button">First</button>
+    <button id="prev-button">Previous</button>
+    <button id="next-button">Next</button>
+    <button id="last-button">Last</button>
+</div>
+<p>
+    {{ comic }}
+</p>
 
 <script>
     var finalpage = {{ high }};
@@ -86,3 +57,5 @@
     document.getElementById("last-button").addEventListener("click", last);
 
 </script>
+
+{% endblock %}
