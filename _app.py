@@ -87,7 +87,7 @@ def side():
         if filename.endswith('.json'):
             with open('./side-content-data/'+filename) as json_file:
                 data = json.load(json_file)
-                data["filename"] = filename[:-5]
+                data["filename"] = filename[:-5] # dont include the extension
                 chapters.append(data)
                 print(data)
     return render_template('sidecontent.html',sitename=os.getenv("SITE_TITLE"),chapters=chapters)

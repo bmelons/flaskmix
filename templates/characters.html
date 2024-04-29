@@ -4,46 +4,17 @@
 
 <!-- image background style -->
 
-<body>
-    <div class="navigation">
-        <div class="menu">
-            <div class="bar bar-1"></div>
-            <div class="bar bar-2"></div>
-            <div class="bar bar-3"></div>
-        </div>
 
-        <nav>
-            <ul>
-                <li class="nav-item">
-                    <a class="nav-link" href="/index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/comic/1">Comic</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/chapters">Chapters</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sidecontent">Side-Content</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/characters">Characters</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    <script src="{{ url_for('static', filename='main.js') }}"></script>
-    <div class="characters">
-        <!-- list characters here -->
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+<div class="characters">
+    <!-- list characters here -->
 
-        <ul class="char-list">
-            {% for character in characters %}
-            <li style="justify-content: center;">
-                <img class="character" src="{{ url_for('static', filename=(" characters/" +character )) }}">
-            </li>
-            {% endfor %}
-        </ul>
+    <ul class="char-list">
+        {% for character in characters %}
+        <li style="justify-content: center;">
+            <img class="character" src="{{ url_for('static', filename=(" characters/" +character )) }}">
+        </li>
+        {% endfor %}
+    </ul>
 
-    </div>
-
-</body>
+</div>

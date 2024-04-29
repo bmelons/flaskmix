@@ -227,3 +227,25 @@ header
     padding: 20px;
     font-size: 1.5em;
 }
+
+/* admin page */
+
+.admin-header {
+    padding: 60px;
+}
+
+.admin-entry {
+    padding: 60px;
+    margin: 50px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.admin-real {
+    font-size: smaller;
+    font-weight: lighter;
+    font-style: italic;
+}
