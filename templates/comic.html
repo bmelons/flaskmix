@@ -1,10 +1,5 @@
 {% extends 'frame.html' %}
-<!doctype html>
 <title>Page {{ issue }} of {{ sitename }}</title>
-<!-- load style.css from static -->
-
-
-
 
 {% block content %}
 <script src="{{ url_for('static', filename='main.js') }}"></script>
@@ -21,9 +16,6 @@
         <button class="comic-button" id="last-button">Last</button>
     </div>
 </div>
-
-
-
 <script>
     var finalpage = {{ high }};
     var issue = {{ issue }}
@@ -58,5 +50,4 @@
     document.getElementById("last-button").addEventListener("click", last);
 
 </script>
-
 {% endblock %}

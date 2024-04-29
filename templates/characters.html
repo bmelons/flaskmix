@@ -4,10 +4,9 @@
     <ul class="char-list">
         {% for character in characters %}
         <li style="justify-content: center;">
-            <img class="character" src="{{ url_for('static', filename=(" characters/" +character )) }}">
+            <img class="character" src="{{ url_for('static', filename=("characters/" +character )) }}">
         </li>
         {% endfor %}
     </ul>
-
 </div>
 {%endblock%}
