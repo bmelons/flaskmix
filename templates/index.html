@@ -1,42 +1,8 @@
-<!-- FILEPATH: /Users/admin/Desktop/Flaskmix/templates/index.html -->
-<head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
-<div class="navigation">
-    <div class="menu">
-        <div class="bar bar-1"></div>
-        <div class="bar bar-2"></div>
-        <div class="bar bar-3"></div>
-        
-    </div>
-    <nav>
-        <ul>
-            <li class="nav-item">
-                <a class="nav-link" href="/index">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/comic/1">Comic</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/chapters">Chapters</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/sidecontent">Side-Content</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/characters">Characters</a>
-            </li>
-        </ul>
-    </nav>
-    </div>
-    <script src="{{ url_for('static', filename='main.js') }}" ></script>
-<body class="index-body" style="background-image: url('static/indexbanner.png');">
-    
+{% extends "frame.html" %}
+{% block content %}
+<div class="index-control">
+    <a href="/comic/first" class="btn btn-primary">Read From Beginning</a>
+    <a href="/comic/last" class="btn btn-primary">Latest Page</a>
+</div>
 
-    <div class="index-control">
-        <a href="/comic/first" class="btn btn-primary">Read From Beginning</a>
-        <a href="/comic/last" class="btn btn-primary">Latest Page</a>
-    </div>
-    
-</body>
+{% endblock %}

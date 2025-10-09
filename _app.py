@@ -35,6 +35,7 @@ conn = get_connection()
 def index():
     return render_template('index.html',sitename=os.getenv("SITE_TITLE"))
 
+
 @app.route('/chapters')
 def chapters():
     # get list of chapter from comic db
