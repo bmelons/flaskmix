@@ -212,7 +212,7 @@ header
     padding: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     transition: .2s;
 }
