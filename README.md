@@ -10,8 +10,13 @@ this is made for one image per page story comics
 i.e no random button
 i may implement an actual settings system to enable and disable things like the random button and the side-content and character systems.
 
+# Main Features
+- single image comic viewing
+- chapter/group selection
+
 # Extra Features
-- side content
+### features that weren't completely necessary for me to add
+- side-comics 
 - character page
 - social
 
