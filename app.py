@@ -288,7 +288,7 @@ def EditSideData():
         return make_response("Unauthorized",401)
     name = request.form.get('name')
     filename = request.form.get('filename')
-    banner_image = request.form.get('banner_image') or "placeholder.png"
+    banner_image = request.form.get('image_path') or "placeholder.png"
     description = request.form.get('description') or "A side comic."
     # make data json file
     data = {
