@@ -293,6 +293,7 @@ def EditSideData():
     # make data json file
     data = {
         'name': name,
+        'filename': filename,
         'banner_image': banner_image,
         'description': description
     }
