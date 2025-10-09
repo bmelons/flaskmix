@@ -1,48 +1,21 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% extends "frame.html" %}
 
-<html>
-    <div class="navigation">
-        <div class="menu">
-            <div class="bar bar-1"></div>
-            <div class="bar bar-2"></div>
-            <div class="bar bar-3"></div>
-            
-        </div>
-        <nav>
-            <ul>
-                <li class="nav-item">
-                    <a class="nav-link" href="/index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/comic/1">Comic</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/chapters">Chapters</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sidecontent">Side-Content</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/characters">Characters</a>
-                </li>
-            </ul>
-        </nav>
-        </div>
-        <script src="{{ url_for('static', filename='main.js') }}" ></script>
-    <body>
+{% block content %}
+<body>
 
-        <h1 class="comic-header">Chapters</h1>
-        <h2 class="comic-header">Here you can find all the chapters of the comic.</h2>
-        <ul>
-            {% for chapter in chapters %}
-                <li >
-                    <a class="listed-chapter" href="{{ chapter.webpage }}">
-                        <img class="chapter-icon" src="{{ url_for('static', filename=("chapter-icons/" + chapter.image_path )) }}">
-                        <h2 class="chapter-name">{{ chapter.name }}</h2>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+    <h1 class="comic-header">Chapters</h1>
+    <h2 class="comic-header">Here you can find all the chapters of the comic.</h2>
+    <ul>
+        {% for chapter in chapters %}
+        <li>
+            <a class="listed-chapter" href="{{ chapter.webpage }}">
+                <img class="chapter-icon" src="{{ url_for('static', filename=("chapter-icons/" + chapter.image_path ))
+                    }}">
+                <h2 class="chapter-name">{{ chapter.name }}</h2>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+{%endblock%}
+

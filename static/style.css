@@ -6,17 +6,26 @@
 }
 body
 {
-    background-color: rgb(29, 53, 29);
-    min-height: 100%;
-    margin: 0;
+    background-color: rgb(35, 50, 35);
+    font-family: 'Montserrat', sans-serif;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background: linear-gradient(0deg, 
-    rgb(11, 31, 17) 0%, 
-    rgba(54,93,54,1) 90%, 
-    rgba(74,105,64,1) 100%);
-    font-family: 'Montserrat', sans-serif;
+    /* flexbox center */
+    display: flex;
+    flex-direction: column;
+    /*keep it vertically centered*/
+    justify-content: center;
+    /*keep it horizontally centered*/
+    align-items: center;
     color: aliceblue;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+}
+ul {
+    list-style-type: none;
 }
 a {
     color:rgb(212, 255, 228);
@@ -154,13 +163,67 @@ header
 }
 
 /* comic page css */
+
+.comic-container {
+    display: flex;
+    margin: 5%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.comic-header {
+    font-size: xx-large;
+    padding: 20px;
+}
+
+.comic-page {
+    margin: 20px;
+    max-width: 800px;
+    box-shadow: 0px 0px 5px black;
+}
+
+.comic-description {
+    font-weight: lighter;
+    padding: 20px;
+    color: rgb(192, 207, 216);
+}
+
 .comic-button
 {
+    cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-weight: bolder;
+    font-size: x-large;
     border-radius: 0px;
     border-width: 0px;
-    padding: 20px;
-    background-color: rgb(16, 52, 16);
+    padding: 20px 30px;
+    margin: 5px;
+    box-shadow: 0px 0px 5px black;
+    background-color: rgb(36, 31, 24);
     color: aliceblue;
+}
+
+/* chapters */
+
+.listed-chapter {
+    background-color: rgb(35, 45, 30);
+    box-shadow: -5px 5px 6px 0px rgba(0, 0, 0, 0.75);
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    transition: .2s;
+}
+
+.chapter-icon {
+    width: 128px;
+    height: 128px;
+}
+
+.chapter-name {
+    color: aliceblue;
+    padding: 20px;
+    font-size: 1.5em;
 }

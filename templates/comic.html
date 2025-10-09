@@ -8,17 +8,20 @@
 
 {% block content %}
 <script src="{{ url_for('static', filename='main.js') }}"></script>
-<h1 class="comic-header">Page {{ issue }}</h1>
-<img class="comic-page" src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
-<h2 class="comic-description">
-    {{d}}
-</h2>
-<div class="comic-controls">
-    <button class="comic-button" id="first-button">First</button>
-    <button class="comic-button" id="prev-button">Previous</button>
-    <button class="comic-button" id="next-button">Next</button>
-    <button class="comic-button" id="last-button">Last</button>
+<div class="comic-container">
+    <h1 class="comic-header">Page {{ issue }}</h1>
+    <img class="comic-page" src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
+    <h2 class="comic-description">
+        {{d}}
+    </h2>
+    <div class="comic-controls">
+        <button class="comic-button" id="first-button">First</button>
+        <button class="comic-button" id="prev-button">Previous</button>
+        <button class="comic-button" id="next-button">Next</button>
+        <button class="comic-button" id="last-button">Last</button>
+    </div>
 </div>
+
 
 
 <script>
