@@ -1,45 +1,14 @@
-<!-- FILEPATH: /Users/admin/Desktop/Flaskmix/templates/error.html -->
+{% extends "frame.html"%}
+<title>{{sitename}}</title>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>{{sitename}}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-        <div class="navigation">
-            <div class="menu">
-                <div class="bar bar-1"></div>
-                <div class="bar bar-2"></div>
-                <div class="bar bar-3"></div>
-                
-            </div>
-            <nav>
-                <ul>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/comic/1">Comic</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/chapters">Chapters</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/sidecontent">Side-Content</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/characters">Characters</a>
-                    </li>
-                </ul>
-            </nav>
-            </div>
-            <script src="{{ url_for('static', filename='main.js') }}" ></script>
-        <div style="margin: 30px;">
-            <h1 class="navbar-brand" >Oopsies 😍</h1>
-        <h2>That link doesn't work here...</h2>
-        </div>
-        
-        <img src = "{{ url_for('static', filename='error.PNG') }}"> 
-    </body>
-</html>
+{% block content%}
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+<div style="margin: 30px;">
+    <h1 class="navbar-brand">Oopsies 😍</h1>
+    <h2>That link doesn't work here...</h2>
+</div>
+
+<img src="{{ url_for('static', filename='error.PNG') }}">
+
+{%endblock%}

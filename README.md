@@ -4,15 +4,16 @@ or Flask Comics
 <sub>whatever</sub>
 
 # About
-this is a framework made in like a week to host a webcomic in because i don't like using wordpress, it makes me feel dirty and i don't like php either so i made this in python.
+this is a mostly barebones comic backend framework made in like a week to host a webcomic in because i don't like using wordpress, it makes me feel dirty, and i don't like php either so i made this in python.
 
 this is made for one image per page story comics
-i.e no random button 
+i.e no random button
+i may implement an actual settings system to enable and disable things like the random button and the side-content and character systems.
 
-# Features
-- a main series option
-- side content option
-- admin panel on website.com/admin or website.com/admin
+# Extra Features
+- side content
+- character page
+- social
 
 
 ## Environment
