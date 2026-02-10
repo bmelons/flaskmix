@@ -1,144 +1,167 @@
-<!-- FILEPATH: /Users/admin/Desktop/Flaskmix/templates/adminpanel.html -->
+
 <html>
-    <head>
-        <title>Admin Panel</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
-    </head>
-    <body>
-        <h1 class="admin-header">
-            Admin Panel
-        </h1>
-        <div class="admin-controls">
+
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+
+<body>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+    <h1 class="admin-header">
+        Admin Panel
+    </h1>
+    <h2 class="seperator" style="padding: 30px;">
+        Main Controls
+    </h2>
+    <div class="admin-controls">
+        <div class="admin-box">
             <h2 class="seperator" style="padding: 30px;">
                 File Controls
             </h2>
             <form action="/adminpanel/upload" method="post" enctype="multipart/form-data">
                 <h2>Upload Comic</h2>
-                <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
+                <input multiple type="file" id="image" name="file" placeholder="image.png (image name)">
                 <input type="submit" value="Upload">
             </form>
             <form action="/adminpanel/uploadchaptericon" method="post" enctype="multipart/form-data">
                 <h2>Upload Chapter Icon</h2>
-                <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
+                <input multiple type="file" id="image" name="file" placeholder="image.png (image name)">
                 <input type="submit" value="Upload">
             </form>
             <form action="/adminpanel/uploadsidepage" method="post" enctype="multipart/form-data">
                 <h2>Upload Side Pages</h2>
-                <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
+                <input multiple type="file" id="image" name="file" placeholder="image.png (image name)">
                 <input type="submit" value="Upload">
             </form>
             <form action="/adminpanel/uploadcharacter" method="post" enctype="multipart/form-data">
                 <h2>Upload Character</h2>
-                <input multiple type="file" id="image" name="file"  placeholder="image.png (image name)">
+                <input multiple type="file" id="image" name="file" placeholder="image.png (image name)">
                 <input type="submit" value="Upload">
             </form>
-            <h2 class="seperator" style="padding: 30px;">
-                Comic Controls
-            </h2>
-            <form action="/adminpanel/add" method="post">
-                <h2>Add Comic</h2>
-                <input type="text" name="image_path" placeholder="image.png (image name)">
-                <input type="text" name="description" placeholder="Issue Description">
-                <input type="submit" value="Add">
-            </form>
-            <form action="/adminpanel/edit" method="post">
-                <h2>Edit Comic</h2>
-                <input type="number" name="id" placeholder="Issue Number">
-                <input type="text" name="image_path" placeholder="image.png (image name)">
-                <input type="text" name="description" placeholder="Issue Description">
-                <input type="submit" value="Edit">
-            </form>
-            <form action="/adminpanel/massadd" method="post">
-                <h2>Mass Add Comic</h2>
-                <label for="low">First Page</label>
-                <input type="number" name="low">
-                <label for="high">Last Page</label>
-                <input type="number" name="high">
-                <input type="submit" value="Add">
-            </form>
-            <form action="/adminpanel/delete" method="post">
-                <h2 style="color:red">DELETE Comic</h2>
-                <input type="number" name="id" placeholder="Issue Number">
-                <input type="submit" value="DELETE">
-            </form>
-            <h2 class="seperator" style="padding: 30px;">
-                Chapters
-            </h2>
-            <form action="/adminpanel/chapteradd" method="post" enctype="multipart/form-data">
-                <h2>Create Chapter</h2>
-                <input type="text" name="web_path" placeholder="comic/1 (first page)">
-                <input type="text" name="image_path" placeholder="image.png (image name)">
-                <input type="text" name="name" placeholder="chapter name">
-                <input type="submit" value="Add">
-            </form>
-            <form action="/adminpanel/chapterdelete" method="post">
-                <h2 style="color:red">DELETE Chapter</h2>
-                <input type="text" name="web_path" placeholder="comic/1 (page)">
-                <input type="submit" value="DELETE">
-            </form>
-            <h2 class="seperator" style="padding: 30px;">
-                Create Side Content
-            </h2>
-            <form action="/adminpanel/createsidecomic" method="post">
-                <h2>Create Side Comic</h2>
-                <input type="text" name="name" placeholder="Ren: Legionbound (Name)">
-                <input type="text" name="filename" placeholder="ren (db name)">
-                <input type="text" name="description" placeholder="Ren's first weeks in the legion. (Description)">
-                <input type="text" name="image_path" placeholder="image.png (image banner)">
-                <input type="submit" value="Add">
-            </form>
-            <form action="/adminpanel/editsidedata" method="post">
-                <h2>Edit Side Comic Data</h2>
-                <input type="text" name="filename" placeholder="ren (target db)">
-                <input type="text" name="name" placeholder="Ren: Legionbound (Name)">
-                <input type="text" name="description" placeholder="Ren's first weeks in the legion. (Description)">
-                <input type="text" name="image_path" placeholder="image.png (image banner)">
-                <input type="submit" value="Edit">
-            </form>
-            <form action="/adminpanel/sideaddpage" method="post">
-                <h2>Add Comic</h2>
-                <input type="text" name="filename" placeholder="ren (database name)">
-                <input type="text" name="image_path" placeholder="image.png (page filename)">
-                <input type="text" name="description" placeholder="Page Description">
-                <input type="submit" value="Add">
-            </form>
-            <form action="/adminpanel/sideeditpage" method="post">
-                <h2>Edit Comic</h2>
-                <input type="text" name="filename" placeholder="ren (database name)">
-                <input type="number" name="id">
-                <input type="text" name="image_path" placeholder="image.png (page filename)">
-                <input type="text" name="description" placeholder="Page Description">
-                <input type="submit" value="Edit">
-            </form>
-            <h2 class="seperator" style="padding: 30px;">
-                Character Management
-            </h2>
-            
-            <form action="/adminpanel/addcharacter" method="post">
-                <h2>Add Character</h2>
-                <input type="text" name="name" placeholder="ren.png">
-                <input type="submit" value="Add">
-            </form>
-            <form action="/adminpanel/deletecharacter" method="post">
-                <h2 style="color:red">DELETE Character</h2>
-                <input type="text" name="name" placeholder="ren.png">
-                <input type="submit" value="DELETE">
         </div>
-        <h2 class="seperator" style="padding: 30px;">
-            Database Contents
+        <div class="admin-box">
+            <h2 class="seperator" style="padding: 30px;">
+            Comic Controls
         </h2>
-        <div class="admin-controls">
-            comics
+        <form action="/adminpanel/add" method="post">
+            <h2>Add Comic</h2>
+            <input type="text" name="image_path" placeholder="image.png (image name)">
+            <input type="text" name="description" placeholder="Issue Description">
+            <input type="submit" value="Add">
+        </form>
+        <form action="/adminpanel/edit" method="post">
+            <h2>Edit Comic</h2>
+            <input type="number" name="id" placeholder="Issue Number">
+            <input type="text" name="image_path" placeholder="image.png (image name)">
+            <input type="text" name="description" placeholder="Issue Description">
+            <input type="submit" value="Edit">
+        </form>
+        <form action="/adminpanel/massadd" method="post">
+            <h2>Mass Add Comic</h2>
+            <label for="low">First Page</label>
+            <input type="number" name="low">
+            <label for="high">Last Page</label>
+            <input type="number" name="high">
+            <input type="submit" value="Add">
+        </form>
+        <form class="danger-box" action="/adminpanel/delete" method="post">
+            <h2 class="danger">DELETE Comic</h2>
+            <input type="number" name="id" placeholder="Issue Number">
+            <input type="submit" value="DELETE">
+        </form>
         </div>
-        <div class="jargon">
-        {{comics}}
+        <div class="admin-box">
+            <h2 class="seperator" style="padding: 30px;">
+            Chapters
+        </h2>
+        <form  action="/adminpanel/chapteradd" method="post" enctype="multipart/form-data">
+            <h2>Create Chapter</h2>
+            <input type="text" name="web_path" placeholder="comic/1 (first page)">
+            <input type="text" name="image_path" placeholder="image.png (image name)">
+            <input type="text" name="name" placeholder="chapter name">
+            <input type="submit" value="Add">
+        </form>
+        <form class="danger-box" action="/adminpanel/chapterdelete" method="post">
+            <h2 class="danger">DELETE Chapter</h2>
+            <input type="text" name="web_path" placeholder="comic/1 (page)">
+            <input type="submit" value="DELETE">
+        </form>
         </div>
-        <div class="admin-controls">
-            chapters
+        <div class="admin-box">
+            <h2 class="seperator" style="padding: 30px;">
+            Create Side Content
+        </h2>
+        <form action="/adminpanel/createsidecomic" method="post">
+            <h2>Create Side Comic</h2>
+            <input type="text" name="name" placeholder="Ren: Legionbound (Name)">
+            <input type="text" name="filename" placeholder="ren (db name)">
+            <input type="text" name="description" placeholder="Ren's first weeks in the legion. (Description)">
+            <input type="text" name="image_path" placeholder="image.png (image banner)">
+            <input type="submit" value="Add">
+        </form>
+        <form action="/adminpanel/editsidedata" method="post">
+            <h2>Edit Side Comic Data</h2>
+            <input type="text" name="filename" placeholder="ren (target db)">
+            <input type="text" name="name" placeholder="Ren: Legionbound (Name)">
+            <input type="text" name="description" placeholder="Ren's first weeks in the legion. (Description)">
+            <input type="text" name="image_path" placeholder="image.png (image banner)">
+            <input type="submit" value="Edit">
+        </form>
+        <form action="/adminpanel/sideaddpage" method="post">
+            <h2>Add Comic</h2>
+            <input type="text" name="filename" placeholder="ren (database name)">
+            <input type="text" name="image_path" placeholder="image.png (page filename)">
+            <input type="text" name="description" placeholder="Page Description">
+            <input type="submit" value="Add">
+        </form>
+        <form action="/adminpanel/sideeditpage" method="post">
+            <h2>Edit Comic</h2>
+            <input type="text" name="filename" placeholder="ren (database name)">
+            <input type="number" name="id">
+            <input type="text" name="image_path" placeholder="image.png (page filename)">
+            <input type="text" name="description" placeholder="Page Description">
+            <input type="submit" value="Edit">
+        </form>
         </div>
-        <div class="jargon">
-        {{chapters}}
-        </div>
+        <div class="admin-box">
+            <h2 class="seperator" style="padding: 30px;">
+            Character Management
+        </h2>
 
-    </body>
+        <form action="/adminpanel/addcharacter" method="post">
+            <h2>Add Character</h2>
+            <input type="text" name="name" placeholder="ren.png">
+            <input type="submit" value="Add">
+        </form>
+        <form class="danger-box" action="/adminpanel/deletecharacter" method="post">
+            <h2 class="danger">DELETE Character</h2>
+            <input type="text" name="name" placeholder="ren.png">
+            <input type="submit" value="DELETE">
+        </div>
+    </div>
+    <h2 class="seperator" style="padding: 30px;">
+        Database Contents
+    </h2>
+    <h2 class="seperator">
+        comics
+    </h2>
+    <div class="jargon">
+        {{comics}}
+    </div>
+    <h2 class="seperator">
+        chapters
+    </h2>
+    <div class="jargon">
+        {{chapters}}
+    </div>
+
+</body>
+
 </html>

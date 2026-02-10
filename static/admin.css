@@ -6,8 +6,13 @@ body {
     font-family: 'Courier New', Courier, monospace;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
     
+    
+}
+
+
+* {
+    border-radius: 8px;
 }
 
 .nav-item {
@@ -119,7 +124,7 @@ button {
 
 .seperator {
     color: #ffeaff;
-    background-color: rgb(27, 34, 47);
+    background-color: rgba(0, 0, 0, 0.253);
 }
 
 .admin-header {
@@ -131,10 +136,50 @@ button {
     color: #ffeaff;
 }
 input {
+    font-size: large;
     padding: 10px;
 }
-
+input[type="file"] {
+    color: #f0f8ff;
+}
 .jargon {
     background-color: #8d8d8d;
     padding: 10px;
+    width: 80%;
+}
+
+.admin-box {
+    margin: 5px;
+    padding: 3em;
+    background: #14151d;
+}
+
+.admin-controls {
+    justify-content: space-between;
+    flex-direction: row;
+    
+    
+    /* align-items: center; */
+    display: flex;
+    width: 95%;
+    padding: 10px;
+}
+h2 {
+    color: white;
+}
+.danger-box {
+    border-radius: 20px;
+    padding: 1em;
+    border: 3px solid red;
+}
+.danger {
+    /* top: -500px;
+    padding: 0px;
+    margin: 0px;
+    line-height: 0; */
+    color: rgb(255, 131, 131);
+}
+::placeholder {
+    color: rgb(45, 73, 70);
+    text-shadow: 1px 2px 6px #000000;
 }

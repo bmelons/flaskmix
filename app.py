@@ -452,7 +452,7 @@ def setup_app():
         with open('characters.json', 'w') as outfile:
             json.dump({"characters":[]}, outfile)
     # check for directories
-    checks = ['./static','./static/comic-pages','./static/chapter-icons','./static/side-pages','./static/characters', './side-content-data', ]
+    checks = ['./static','./static/comic-pages','./static/chapter-icons','./static/side-pages','./static/characters', './side-content-data','page-data' ]
     for directory in checks:
         if fcheck(directory) == False:
             os.mkdir(directory)
