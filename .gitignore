@@ -39,7 +39,7 @@ venv.bak/
 # i dont want to save test images
 *.png
 *.gif
-*.json
+
 
 TODO
 

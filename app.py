@@ -12,6 +12,15 @@ dotenv.load_dotenv()
 
 
 
+
+# CONFIG = None
+with open("config.json",'r') as file:
+    data = file.read()
+    # print(type(data))
+    CONFIG = json.loads(data)
+# print(CONFIG["preferences"])
+
+
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
@@ -440,7 +449,7 @@ def administrator_check(data):
 
 
 def setup_tables():
-    conn.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT,tags JSON)')
+    conn.execute('CREATE TABLE IF NOT EXISTS comics (rowid INTEGER PRIMARY KEY, image_path TEXT, description TEXT,tags JSON, time_published BIGINT)')
     conn.execute('CREATE TABLE IF NOT EXISTS chapters (webpage TEXT,image_path TEXT, name TEXT)')
 
 

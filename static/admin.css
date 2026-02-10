@@ -1,185 +1,183 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,600;1,100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,600;1,100&display=swap");
 
 body {
-    background-color: rgb(32, 56, 48);
-    font-family: 'Courier New', Courier, monospace;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
-    
+  background-color: rgb(32, 56, 48);
+  font-family: "Courier New", Courier, monospace;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-
 * {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 .nav-item {
-    color: rgb(255, 254, 219);
+  color: rgb(255, 254, 219);
 }
 .comic-header {
-    color: rgb(255, 254, 219);
-    padding: 20px;
+  color: rgb(255, 254, 219);
+  padding: 20px;
 }
 
 .comic_page {
-    background-color: black;
-    width: 50%;
-    height: 50%;
-    filter: drop-shadow(0px 0px 10px rgb(0, 0, 0));
+  background-color: black;
+  width: 50%;
+  height: 50%;
+  filter: drop-shadow(0px 0px 10px rgb(0, 0, 0));
 }
 
-.navbar{
-    width: 101%;
-    height: 10%;
-    background-color: #24472e;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    padding: 0 10px 0 10px;
-    justify-content: space-around;
-    align-items: center;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-    position:sticky;
-    
+.navbar {
+  width: 101%;
+  height: 10%;
+  background-color: #24472e;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0 10px 0 10px;
+  justify-content: space-around;
+  align-items: center;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  position: sticky;
 }
-.navbar-nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
 }
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5em;
-    margin: 0%;
-    padding: 0%;
-    /* disable wrapping */
-    white-space: nowrap;
-    padding: 10px;
-    transition: 0.2s;
+  color: white;
+  text-decoration: none;
+  font-size: 1.5em;
+  margin: 0%;
+  padding: 0%;
+  /* disable wrapping */
+  white-space: nowrap;
+  padding: 10px;
+  transition: 0.2s;
 }
 a:hover {
-    color: #ffeaff;
-    text-shadow: #ffeaff 0px 0px 10px;
+  color: #ffeaff;
+  text-shadow: #ffeaff 0px 0px 10px;
 }
 
 .comic-controls {
-    padding: 20px;
+  padding: 20px;
 }
 
 button {
-    background-color: #685946; /* Green */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    border: none;
-    color: #ffeaff;
-    padding: 15px 32px;
-    margin: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;    
-    font-family: 'Montserrat', sans-serif;
+  background-color: #685946; /* Green */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  border: none;
+  color: #ffeaff;
+  padding: 15px 32px;
+  margin: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "Montserrat", sans-serif;
 
-    /* change cursor to point */
-    cursor: pointer;
-  }
-  button:disabled {
-    background-color: #2e2a23;
-    cursor: not-allowed;
-  }
+  /* change cursor to point */
+  cursor: pointer;
+}
+button:disabled {
+  background-color: #2e2a23;
+  cursor: not-allowed;
+}
 
-  .admin-entry {
-    padding: 30px;
-  }
+.admin-entry {
+  padding: 30px;
+}
 
-  .login-entry-label {
-    /* bold text */
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
-  }
+.login-entry-label {
+  /* bold text */
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
+label {
+  color: white;
+}
 
 .submit {
-    background-color: #685946; /* Green */
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-    border: none;
-    color: #ffeaff;
-    padding: 15px 32px;
-    margin: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    /* change cursor to point */
-    cursor: pointer;
-  }
+  background-color: #685946; /* Green */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  border: none;
+  color: #ffeaff;
+  padding: 15px 32px;
+  margin: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /* change cursor to point */
+  cursor: pointer;
+}
 
 .seperator {
-    color: #ffeaff;
-    background-color: rgba(0, 0, 0, 0.253);
+  color: #ffeaff;
+  background-color: rgba(0, 0, 0, 0.253);
 }
 
 .admin-header {
-    padding: 20px;
-    margin: 0px;
-    text-align: center;
-    font-size: 2em;
-    font-weight: bold;
-    color: #ffeaff;
+  padding: 20px;
+  margin: 0px;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #ffeaff;
 }
 input {
-    font-size: large;
-    padding: 10px;
+  font-size: large;
+  padding: 10px;
 }
 input[type="file"] {
-    color: #f0f8ff;
+  color: #f0f8ff;
 }
 .jargon {
-    background-color: #8d8d8d;
-    padding: 10px;
-    width: 80%;
+  background-color: #8d8d8d;
+  padding: 10px;
+  width: 80%;
 }
 
 .admin-box {
-    margin: 5px;
-    padding: 3em;
-    background: #14151d;
+  margin: 5px;
+  padding: 3em;
+  background: #14151d;
 }
 
 .admin-controls {
-    justify-content: space-between;
-    flex-direction: row;
-    
-    
-    /* align-items: center; */
-    display: flex;
-    width: 95%;
-    padding: 10px;
+  justify-content: space-between;
+  flex-direction: row;
+
+  /* align-items: center; */
+  display: flex;
+  width: 95%;
+  padding: 10px;
 }
 h2 {
-    color: white;
+  color: white;
 }
 .danger-box {
-    border-radius: 20px;
-    padding: 1em;
-    border: 3px solid red;
+  border-radius: 20px;
+  padding: 1em;
+  border: 3px solid red;
 }
 .danger {
-    /* top: -500px;
+  /* top: -500px;
     padding: 0px;
     margin: 0px;
     line-height: 0; */
-    color: rgb(255, 131, 131);
+  color: rgb(255, 131, 131);
 }
 ::placeholder {
-    color: rgb(45, 73, 70);
-    text-shadow: 1px 2px 6px #000000;
+  color: rgb(45, 73, 70);
+  text-shadow: 1px 2px 6px #000000;
 }

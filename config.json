@@ -1,0 +1,18 @@
+{
+  "preferences": {
+    "enableRandomButton": true,
+    "enableCharactersPage": true,
+    "enableSideComics": true,
+    "enablePageList": true,
+    "enableChapterList": true,
+    "enableTags": true
+  },
+  "autoTags": {
+    "date": 2
+  },
+  "theming": {
+    "chaptersName": "Chapters",
+    "pagesName": "Pages",
+    "baseColor": [255, 255, 255]
+  }
+}
