@@ -51,10 +51,10 @@
             Comic Controls
         </h2>
         <form action="/adminpanel/add" method="post">
-            <h2>Add Comic</h2>
+            <h2>Add Page</h2>
             <input type="text" name="image_path" placeholder="image.png (image name)">
             <input type="text" name="description" placeholder="Page Description">
-            <input type="text" name="tags" placeholder="comma seperated no spaces 'Meilon, Shroud, '">
+            <input type="text" name="tags" placeholder="comma seperated no spaces 'Meilon, Eris, Fight Scenes'">
             <!-- <p>comics are autotagged with the year published</p> -->
             <input type="submit" value="Add">
         </form>
@@ -63,14 +63,16 @@
             <input type="number" name="id" placeholder="Page Number">
             <input type="text" name="image_path" placeholder="image.png (image name)">
             <input type="text" name="description" placeholder="Issue Description">
+            <input type="text" name="tags" placeholder="comma seperated no spaces 'Meilon, Eris, Fight Scenes'">
             <input type="submit" value="Edit">
         </form>
         <form action="/adminpanel/massadd" method="post">
-            <h2>Mass Add Comic</h2>
+            <h2>Mass Add Page</h2>
             <label for="low">First Page</label>
             <input type="number" name="low">
             <label for="high">Last Page</label>
             <input type="number" name="high">
+            <input type="text" name="tags" placeholder="comma seperated no spaces 'Meilon, Eris, Fight Scenes'">
             <input type="submit" value="Add">
         </form>
         <form class="danger-box" action="/adminpanel/delete" method="post">
@@ -117,18 +119,20 @@
             <input type="submit" value="Edit">
         </form>
         <form action="/adminpanel/sideaddpage" method="post">
-            <h2>Add Comic</h2>
+            <h2>Add Page</h2>
             <input type="text" name="filename" placeholder="ren (database name)">
             <input type="text" name="image_path" placeholder="image.png (page filename)">
             <input type="text" name="description" placeholder="Page Description">
+            <input type="text" name="tags" placeholder="comma seperated no spaces 'Meilon, Eris, Fight Scenes'">
             <input type="submit" value="Add">
         </form>
         <form action="/adminpanel/sideeditpage" method="post">
             <h2>Edit Comic</h2>
             <input type="text" name="filename" placeholder="ren (database name)">
-            <input type="number" name="id">
+            <input type="number" name="id" placeholder="Page Number">
             <input type="text" name="image_path" placeholder="image.png (page filename)">
             <input type="text" name="description" placeholder="Page Description">
+            <input type="text" name="tags" placeholder="comma seperated no spaces 'Meilon, Eris, Fight Scenes'">
             <input type="submit" value="Edit">
         </form>
         </div>
