@@ -1,0 +1,2 @@
+- [] actually edit all of the sqlite calls to match the new schema
+- [] actually disable pages when theyre disabled instead of just removing them from the frame.html navbar

@@ -1,18 +1,25 @@
 {
+  "main": {
+    "siteTitle": "Flaskmix Test Page"
+  },
   "preferences": {
+    "NOTE: Multicomic mode disables the 'main comic' feature in favor of using the side comics as the main part of the site. useful for hosting multiple equally important comics":0,
     "enableRandomButton": true,
     "enableCharactersPage": true,
     "enableSideComics": true,
     "enablePageList": true,
     "enableChapterList": true,
-    "enableTags": true
+    "enableTags": true,
+    "enableMultiComicMode": true
   },
   "autoTags": {
     "date": 2
   },
   "theming": {
-    "chaptersName": "Chapters",
-    "pagesName": "Pages",
+    "sideContentName": "Side-Clowntent",
+    "sideContentDescription": "HEre you can find all the supplemental content.",
+    "chaptersName": "Volumacts",
+    "pagesName": "Plaiges",
     "baseColor": [255, 255, 255]
   }
 }

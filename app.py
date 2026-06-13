@@ -3,6 +3,10 @@ import sqlite3
 import os
 import json
 import dotenv
+from confighelper import MapObject
+from functools import wraps
+from werkzeug.utils import secure_filename
+
 
 
 app = Flask(__name__)
@@ -10,16 +14,18 @@ app = Flask(__name__)
 app._static_folder = 'static'
 dotenv.load_dotenv()
 
-
-
+ 
 
 # CONFIG = None
 with open("config.json",'r') as file:
     data = file.read()
     # print(type(data))
-    CONFIG = json.loads(data)
+    app.config.serverConfig = json.loads(data)
 # print(CONFIG["preferences"])
 
+## constants
+print(app.config.serverConfig)
+SITE_TITLE = app.config.serverConfig["main"]["siteTitle"]
 
 def dict_factory(cursor, row):
     d = {}
@@ -38,11 +44,23 @@ def get_character_directory():
     return open('characters.json','r+')
 conn = get_connection()
 
+
+
+@app.context_processor
+def inject_config():
+    return dict(
+        site_config = app.config.serverConfig
+    )
+
 # index
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html',sitename=os.getenv("SITE_TITLE"))
+    return render_template('index.html')
+
+@app.route('/readcfg')
+def readcfg():
+    return render_template('debug/readcfg.html')
 
 @app.route('/chapters')
 def chapters():
@@ -50,7 +68,7 @@ def chapters():
     chapters = get_connection().execute('SELECT * FROM chapters').fetchall()
 
     # get number of highest issue
-    return render_template('chapters.html',sitename=os.getenv("SITE_TITLE"),chapters=chapters)
+    return render_template('chapters.html',chapters=chapters)
 
 @app.route('/comic')
 def comic():
@@ -58,7 +76,7 @@ def comic():
 
 @app.route('/socialmedia')
 def socialmedia():
-    return render_template('socialmedia.html',sitename=os.getenv("SITE_TITLE"))
+    return render_template('socialmedia.html')
 
 @app.route('/comic/last')
 def comic_last():
@@ -82,7 +100,7 @@ def comic_issue(issue):
     row_id = comic.get('rowid') or 0
     desc = comic.get('description') or "..."
     print(highest_issue)
-    return render_template('comic.html',sitename=os.getenv("SITE_TITLE"),d=desc,p=image_path,issue=issue,high=highest_issue)
+    return render_template('comic.html',d=desc,p=image_path,issue=issue,high=highest_issue)
 @app.route('/comic/<int:issue>/')
 def comic_issue_slash(issue):
     return redirect('/comic/'+str(issue))
@@ -98,29 +116,37 @@ def side():
                 data["filename"] = filename[:-5]
                 chapters.append(data)
                 print(data)
-    return render_template('sidecontent.html',sitename=os.getenv("SITE_TITLE"),chapters=chapters)
+    return render_template('sidecontent.html',chapters=chapters)
 
 
 #region admin
+def admin_auth(f):
+    @wraps(f)
+    def wrapper(*args,**kwargs):
+        if request.cookies.get('user') != os.getenv('COMIC_ADMIN_COOKIE'):
+            return make_response("Unauthorized",404)
+        
+        return f(*args, **kwargs)
+    return wrapper
+
 @app.route('/admin',methods=['GET','POST'])
 def admin():
     if request.method == 'POST':
         print(request.form.get('username'))
         if request.form.get('username') != os.getenv('COMIC_ADMIN_UNAME'):
-            return render_template('admin.html',sitename=os.getenv("SITE_TITLE"),message='Incorrect.')
+            return render_template('admin.html',message='Incorrect.')
         if request.form.get('password') != os.getenv('COMIC_ADMIN_PW'):
-            return render_template('admin.html',sitename=os.getenv("SITE_TITLE"),message='Incorrect.')
+            return render_template('admin.html',message='Incorrect.')
         
         resp = make_response(redirect('/adminpanel'))
         resp.set_cookie('user', os.getenv('COMIC_ADMIN_COOKIE'))
         return resp
-    return render_template('admin.html',sitename=os.getenv("SITE_TITLE"))
+    return render_template('admin.html')
 
 @app.route('/adminpanel',methods=['GET','POST'])
+@admin_auth
 def adminpanel():
     # check if cookie is right
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
 
     # get comics from database
     
@@ -129,9 +155,8 @@ def adminpanel():
     return render_template('adminpanel.html',comics=comics,chapters=chapters)
 
 @app.route('/adminpanel/add',methods=['POST'])
+@admin_auth
 def AddComic():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     # get image path and description from form
     image_path = request.form.get('image_path')
     description = request.form.get('description') or "..."
@@ -144,9 +169,9 @@ def AddComic():
     return redirect('/adminpanel')
 
 @app.route('/adminpanel/massadd',methods=['POST'])
+@admin_auth
 def MassAddComic():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
+
     low = int(request.form.get('low'));
     high = int(request.form.get('high'));
     highest_issue = get_connection().execute('SELECT COUNT(*) FROM comics').fetchone().get('COUNT(*)')
@@ -154,15 +179,14 @@ def MassAddComic():
     for i in range(low,high+1):
         image_path = str(i) + ".png"
         description = " "
-        conn.execute('INSERT INTO comics VALUES (NULL, ?, ?)', (image_path, description))
+        conn.execute('INSERT INTO comics VALUES (NULL, ?, ?, ?, ?)', (image_path, description,"[]",0))
     conn.commit()
     print("comics added")
     return redirect('/adminpanel')
 #region
 @app.route('/adminpanel/edit',methods=['POST'])
+@admin_auth
 def EditComic():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     print("edit comic")
     # get id, image path, and description from form
     id = request.form.get('id')
@@ -176,9 +200,8 @@ def EditComic():
     return redirect('/adminpanel')
 
 @app.route('/adminpanel/upload',methods=['POST'])
+@admin_auth
 def UploadToStatic():
-    if administrator_check(request) :
-        return make_response("Unauthorized",401)
     # get image from form
     uploaded_files = request.files.getlist("file")
     print(uploaded_files)
@@ -188,9 +211,8 @@ def UploadToStatic():
         image.save('static/comic-pages/'+image.filename)
     return redirect('/adminpanel')
 @app.route('/adminpanel/uploadchaptericon',methods=['POST'])
+@admin_auth
 def UploadChapterIcon():
-    if administrator_check(request) :
-        return make_response("Unauthorized",401)
     # get image from form
     uploaded_files = request.files.getlist("file")
     print(uploaded_files)
@@ -200,9 +222,8 @@ def UploadChapterIcon():
         image.save('static/chapter-icons/'+image.filename)
     return redirect('/adminpanel')
 @app.route('/adminpanel/uploadsidepage',methods=['POST'])
+@admin_auth
 def UploadSidePage():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     # get image from form
     uploaded_files = request.files.getlist("file")
     print(uploaded_files)
@@ -212,9 +233,8 @@ def UploadSidePage():
         image.save('static/side-pages/'+image.filename)
     return redirect('/adminpanel')
 @app.route('/adminpanel/delete',methods=['POST'])
+@admin_auth
 def DeleteComic():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     # get id from form
     id = request.form.get('id')
     # delete from database
@@ -224,9 +244,8 @@ def DeleteComic():
     print("comic deleted")
     return redirect('/adminpanel')
 @app.route('/adminpanel/chapteradd',methods=['POST'])
+@admin_auth
 def AddChapter():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     # get image path and description from form
     web_path = request.form.get('web_path')
     image_path = request.form.get('image_path')
@@ -239,9 +258,8 @@ def AddChapter():
     print("chapter added")
     return redirect('/adminpanel')
 @app.route('/adminpanel/chapteredit',methods=['POST'])
+@admin_auth
 def EditChapter():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     print("edit chapter")
     # get id, image path, and description from form
     web_path = request.form.get('web_path')
@@ -254,9 +272,8 @@ def EditChapter():
     print("chapter edited")
     return redirect('/adminpanel')
 @app.route('/adminpanel/chapterdelete',methods=['POST'])
+@admin_auth
 def DeleteChapter():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     # get id from form
     web_path = request.form.get('web_path')
     # delete from database
@@ -267,9 +284,8 @@ def DeleteChapter():
     return redirect('/adminpanel')
 
 @app.route('/adminpanel/createsidecomic',methods=['POST'])
+@admin_auth
 def CreateSideComic():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     name = request.form.get('name')
     filename = request.form.get('filename')
     banner_image = request.form.get('image_path')
@@ -292,9 +308,8 @@ def CreateSideComic():
     print("side comic created")
     return redirect('/adminpanel')
 @app.route("/adminpanel/editsidedata",methods=['POST'])
+@admin_auth
 def EditSideData():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     name = request.form.get('name')
     filename = request.form.get('filename')
     banner_image = request.form.get('image_path') or "placeholder.png"
@@ -311,9 +326,8 @@ def EditSideData():
     print("side comic data edited")
     return redirect('/adminpanel')
 @app.route("/adminpanel/sideaddpage",methods=['POST'])
+@admin_auth
 def SideAddPage():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     name = request.form.get('filename')
     image_path = request.form.get('image_path') or "placeholder.png"
     description = request.form.get('description') or "..."
@@ -323,9 +337,8 @@ def SideAddPage():
     print("side comic page added")
     return redirect('/adminpanel')
 @app.route("/adminpanel/sideeditpage",methods=['POST'])
+@admin_auth
 def SideEditPage():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     name = request.form.get('filename')
     id = request.form.get('id')
     image_path = request.form.get('image_path') or "placeholder.png"
@@ -336,9 +349,8 @@ def SideEditPage():
     print("side comic page edited")
     return redirect('/adminpanel')
 @app.route("/adminpanel/uploadcharacter",methods=['POST'])
+@admin_auth
 def UploadCharacter():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     uploaded_files = request.files.getlist("file")
     print(uploaded_files)
     for image in uploaded_files:
@@ -346,9 +358,8 @@ def UploadCharacter():
         image.save('static/characters/'+image.filename)
     return redirect('/adminpanel')
 @app.route("/adminpanel/addcharacter",methods=['POST'])
+@admin_auth
 def AddCharacter():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     name = request.form.get('name')
     file = get_character_directory()
     data = json.load(file)
@@ -359,9 +370,8 @@ def AddCharacter():
     print("character added")
     return redirect('/adminpanel')
 @app.route("/adminpanel/deletecharacter",methods=['POST'])
+@admin_auth
 def DeleteCharacter():
-    if administrator_check(request):
-        return make_response("Unauthorized",401)
     name = request.form.get('name')
     file = get_character_directory()
     data = json.load(file)
@@ -374,11 +384,20 @@ def DeleteCharacter():
     return redirect('/adminpanel')
 #endregion
 
+#region pages
+
+@app.route("/pages")
+def viewpages():
+   
+    allpages =  get_connection().execute("SELECT * FROM COMICS").fetchall()
+    print(allpages)
+    return render_template('viewpages.html',pages=allpages)
+
 @app.route("/characters")
 def Characters():
     file = get_character_directory()
     data = json.load(file)
-    return render_template('characters.html',sitename=os.getenv("SITE_TITLE"),characters=data['characters'])
+    return render_template('characters.html',characters=data['characters'])
 
 @app.route('/<chapter>')
 def direct(chapter):
@@ -429,7 +448,7 @@ def side_comic_read(chapter,issue):
     comname = data.get('name') or "Side Comic"
     fn = data.get('filename')
     desc = comic.get('description') or "..."
-    return render_template('view_side.html',sitename=os.getenv("SITE_TITLE"),d=desc,p=image_path,issue=issue,high=highest_issue,comname=comname,filename=fn)
+    return render_template('view_side.html',d=desc,p=image_path,issue=issue,high=highest_issue,comname=comname,filename=fn)
     
 
 
@@ -440,7 +459,9 @@ def get_side_db(id):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error.html',sitename=os.getenv("SITE_TITLE")), 404
+    return render_template('error.html'), 404
+
+
 
 
 def administrator_check(data):

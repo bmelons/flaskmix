@@ -1,0 +1,22 @@
+{% extends "frame.html" %}
+{% block content %}
+<h1>we aaaare canada </h1>
+
+<ul class="pagelist">
+    {% for page in pages %}
+        <li><img class="page" src="{{url_for('static', filename=("comic-pages/" +page.image_path ))}}" alt=""></li>
+    {% endfor %}
+</ul>
+<style>
+.pagelist {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page {
+    margin: 3px;
+    height: 10em;
+}
+
+</style>
+{% endblock %}

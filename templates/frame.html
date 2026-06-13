@@ -9,7 +9,7 @@
 
 <body>
     <header>
-        <a class="logo" href="/index">{{sitename}}</a>
+        <a class="logo" href="/index">{{site_config.main.siteTitle}}</a>
         <input class="side-menu" type="checkbox" id="side-menu" />
         <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
         <nav class="nav">
@@ -17,14 +17,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/index">Home</a>
                 </li>
+                {% if not site_config.theming.enableMultiComicMode %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/comic/1">Comic</a>
+                    <a class="nav-link" href="/comic/1">Read Comic</a>
+                </li>
+                {% endif %}
+                {% if site_config.preferences.enablePageList %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/pages">{{site_config.theming.pagesName}}</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/chapters">{{site_config.theming.chaptersName}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/chapters">Chapters</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sidecontent">Side-Content</a>
+                    <a class="nav-link" href="/sidecontent">{{site_config.theming.sideContentName}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/characters">Characters</a>

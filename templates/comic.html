@@ -4,7 +4,7 @@
 {% block content %}
 <script src="{{ url_for('static', filename='main.js') }}"></script>
 <div class="comic-container">
-    <h1 class="comic-header">Page {{ issue }}</h1>
+    <h1 class="comic-header">{{site_config.theming.pagesName}} {{ issue }}</h1>
     <img class="comic-page" src="{{ url_for('static', filename=("comic-pages/" +p )) }}">
     <h2 class="comic-description">
         {{d}}
@@ -12,6 +12,9 @@
     <div class="comic-controls">
         <button class="comic-button" id="first-button">First</button>
         <button class="comic-button" id="prev-button">Previous</button>
+        {% if site_config.preferences.enableRandomButton %}
+        <button class="comic-button" id="random-button">Random</button>
+        {% endif %}
         <button class="comic-button" id="next-button">Next</button>
         <button class="comic-button" id="last-button">Last</button>
     </div>
@@ -44,8 +47,17 @@
             window.location.href = "/comic/" + issue;
         }
     }
+    function randompage(){
+        let page = Math.floor(Math.random()*finalpage);
+        page = Math.max(1,page)
+        window.location.href = "/comic/" + page;
+    }
     document.getElementById("first-button").addEventListener("click", first);
     document.getElementById("next-button").addEventListener("click", next);
+    let rb = document.getElementById("random-button")
+    if (rb) {
+        rb.addEventListener("click",randompage)
+    }
     document.getElementById("prev-button").addEventListener("click", previous);
     document.getElementById("last-button").addEventListener("click", last);
 

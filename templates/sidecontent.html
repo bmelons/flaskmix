@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 class="comic-header">Side Content</h1>
-<h2 class="comic-header">Here you can find all the supplemental content.</h2>
+<h2 class="comic-header">{{site_config.theming.sideContentDescription}}</h2>
 <ul>
     {% for chapter in chapters %}
     <li>
